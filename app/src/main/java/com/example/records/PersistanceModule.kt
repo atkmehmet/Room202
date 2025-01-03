@@ -15,6 +15,7 @@ import javax.inject.Singleton
 class PersistanceModule {
 
     @Provides
+    @Singleton
     fun provideDatabase(@ApplicationContext context: Context):AppDataBase= Room.databaseBuilder(
         context,
         AppDataBase::class.java,
@@ -22,6 +23,7 @@ class PersistanceModule {
     ).build()
 
     @Provides
+    @Singleton
     fun providesDao(dataBase: AppDataBase) :AppDao = dataBase.appDao()
 
 
