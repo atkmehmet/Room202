@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "MasterTable")
 class MasterTable
     (
- @PrimaryKey @ColumnInfo(name = "id") val id: Long,
+ @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long = 0,
          @ColumnInfo(name = "name") val name: String,
          @ColumnInfo(name = "text") val text: String
 )
