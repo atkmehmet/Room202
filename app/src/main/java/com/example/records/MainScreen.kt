@@ -3,11 +3,14 @@ package com.example.records
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -23,9 +26,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun MainScreen(mainView: MainView = hiltViewModel()){
-    @Composable
-    fun MainScreen(mainView: MainView = hiltViewModel()) {
+
         val context = LocalContext.current
+    val masters by mainView.masters.collectAsState()
 
         Column(
             modifier = Modifier
@@ -59,7 +62,18 @@ fun MainScreen(mainView: MainView = hiltViewModel()){
             ) {
                 Text("Save")
             }
+
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Display the list in a LazyColumn
+            LazyColumn {
+                items(masters.size) { it ->
+                    Text("ID: ${masters[it].id}, Name: ${masters[it].name}, Description: ${masters[it].text}")
+                    Divider()
+                }
+            }
         }
+
     }
 
-}

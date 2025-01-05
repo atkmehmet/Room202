@@ -15,11 +15,17 @@ import javax.inject.Inject
 class MainView @Inject constructor(private val dao: AppDao):ViewModel() {
     private val _masters = MutableStateFlow<List<MasterTable>>(emptyList())
     val masters: StateFlow<List<MasterTable>> = _masters
+
+
     var name by mutableStateOf("")
      private set
 
     var text by mutableStateOf("")
     private set
+
+    init {
+        loadMasters()
+    }
 
  fun insertMaster() {
      viewModelScope.launch {
@@ -35,6 +41,12 @@ class MainView @Inject constructor(private val dao: AppDao):ViewModel() {
      fun updateText(newText:String){
          text = newText
      }
+
+    private fun loadMasters() {
+        viewModelScope.launch {
+            _masters.value = dao.getAllMasters()
+        }
+    }
 
  }
 
