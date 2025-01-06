@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SubtableView @Inject constructor(private val dao: AppDao) :ViewModel() {
+class SubTableView @Inject constructor(private val dao: AppDao) :ViewModel() {
 
     var masterId by mutableStateOf("")
     private set
@@ -25,7 +25,13 @@ class SubtableView @Inject constructor(private val dao: AppDao) :ViewModel() {
     val subTables : StateFlow<List<SubTable>> = _subTables
 
     init {
-
+       loadSubTable()
+    }
+    
+    fun insertSubTable(){
+        viewModelScope.launch {
+            dao.insertSub(SubTable(0, masterId = masterId.toLong(), text = text))
+        }
     }
 
     fun updateMasterId(newMasterId:String){
